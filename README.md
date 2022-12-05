@@ -1,6 +1,6 @@
 # react-headless-carousel
 
-
+```
 import React from "react";
 import Carousel, { useCarouselContext } from "../headless/carousel/Carousel";
 import {
@@ -53,3 +53,4 @@ const Stories = () => {
       )}
   );
 };
+```
