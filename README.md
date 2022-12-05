@@ -1,7 +1,9 @@
 # react-headless-carousel
 
--- Basic usage
--- there are also Carousel.Dots and Carousel.Dot in carousel (check Collections in components how to use it)
+-- Basic usage --
+-----------------
+
+-- There are also Carousel.Dots and Carousel.Dot in carousel (check Collections in components how to use it)
 
 ```javascript
 import React from "react";
