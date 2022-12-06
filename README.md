@@ -4,6 +4,10 @@
 -----------------
 
 -- There are also Carousel.Dots and Carousel.Dot in carousel (check Collections in components how to use it)
+-- styling is tailwind :-)
+
+<img width="551" alt="Screenshot 2022-12-06 at 18 43 54" src="https://user-images.githubusercontent.com/3868751/205984109-08b97641-1786-4230-86bf-88faebceef38.png">
+
 
 ```javascript
 import React from "react";
@@ -33,7 +37,7 @@ const Stories = () => {
             wrapperWidth={380}                                          # width of your carousel
             nextSlideTransitionWidth={340}                              # how much you wanna move when hit next slide
           >
-            {data.data.map((slide: any, index: number) => (
+            {data.map((slide: any, index: number) => (
               <Carousel.Slide
                 index={index}                                           # This is important to know for sliding
                 key={index}
