@@ -21,29 +21,38 @@ export const useCarouselContext = () => {
   return context;
 };
 
-const Carousel = ({ children, dataLength, ...restProps }: CarouselType) => {
+const Carousel = ({ children, slidesCount, ...restProps }: CarouselType) => {
   return (
     <CarouselContext.Provider
-      value={{ ...useCarousel(dataLength), dataLength }}
+      value={{ ...useCarousel(slidesCount), slidesCount }}
     >
-      <div {...restProps}>{children}</div>
+      <div data-testid="carousel" {...restProps}>
+        {children}
+      </div>
     </CarouselContext.Provider>
   );
 };
 
 Carousel.Slide = ({ children, ...restProps }: CarouselItemType) => {
-  return <div {...restProps}>{children}</div>;
+  return (
+    <div data-testid="slide" {...restProps}>
+      {children}
+    </div>
+  );
 };
 
 Carousel.Dots = ({ children, ...restProps }: CarouselItemType) => {
-  return <div {...restProps}>{children}</div>;
+  return (
+    <div data-testid="dots" {...restProps}>
+      {children}
+    </div>
+  );
 };
 
 Carousel.LeftArrow = ({ children, ...restProps }: CarouselItemType) => {
   const { prevSlide } = useCarouselContext();
-
   return (
-    <button onClick={() => prevSlide()} {...restProps}>
+    <button data-testid="left-arrow" onClick={() => prevSlide()} {...restProps}>
       {children}
     </button>
   );
@@ -53,7 +62,11 @@ Carousel.RightArrow = ({ children, ...restProps }: CarouselItemType) => {
   const { nextSlide } = useCarouselContext();
 
   return (
-    <button onClick={() => nextSlide()} {...restProps}>
+    <button
+      data-testid="right-arrow"
+      onClick={() => nextSlide()}
+      {...restProps}
+    >
       {children}
     </button>
   );
@@ -64,6 +77,7 @@ Carousel.Dot = ({ children, index, ...restProps }: CarouselDotType) => {
 
   return (
     <button
+      data-testid="dot"
       onClick={() => {
         goToSlide(index);
       }}
@@ -80,10 +94,11 @@ Carousel.SlidesContainer = ({
   nextSlideTransitionWidth,
   ...restProps
 }: CarouselSlidesContainerType) => {
-  const { slideIndex, dataLength } = useCarouselContext();
+  const { slideIndex, slidesCount } = useCarouselContext();
 
   return (
     <div
+      data-testid="slides-wrapper"
       style={{
         overflow: "hidden",
         display: "flex",
@@ -92,8 +107,9 @@ Carousel.SlidesContainer = ({
       }}
     >
       <div
+        data-testid="slides-container"
         style={{
-          width: `${dataLength * nextSlideTransitionWidth}px`,
+          width: `${slidesCount * nextSlideTransitionWidth}px`,
           transform: `translateX(-${slideIndex * nextSlideTransitionWidth}px)`,
           transition: "transform ease-out 0.3s",
           display: "flex",

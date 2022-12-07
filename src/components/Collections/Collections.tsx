@@ -4,7 +4,11 @@ import { useCollections } from "../../queries/useCollections";
 import CollectionsCarousel from "./CollectionsCarousel";
 import Loading from "./Loading";
 
-const Collections = () => {
+type CollectionsPropsType = {
+  windowWidth: number;
+};
+
+const Collections = ({ windowWidth }: CollectionsPropsType) => {
   const { status, data } = useCollections();
 
   return (
@@ -12,14 +16,14 @@ const Collections = () => {
       {status === "loading" ? (
         <Loading />
       ) : status === "error" ? (
-        <span>Error</span>
+        <span>Error loading Collections</span>
       ) : (
         <Carousel
-          dataLength={data.data.length}
+          slidesCount={data.data.length}
           className="flex flex-row relative"
-          style={{ width: "380px" }}
+          style={{ width: windowWidth < 380 ? windowWidth + "px" : "380px" }}
         >
-          <CollectionsCarousel data={data.data} />
+          <CollectionsCarousel windowWidth={windowWidth} data={data.data} />
         </Carousel>
       )}
     </>

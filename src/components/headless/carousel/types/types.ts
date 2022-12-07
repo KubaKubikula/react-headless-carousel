@@ -5,7 +5,7 @@ export type CarouselContextType = {
   prevSlide: () => void;
   nextSlide: () => void;
   goToSlide: (index: number) => void;
-  dataLength: number;
+  slidesCount: number;
 };
 
 export type CarouselItemType = {
@@ -27,11 +27,13 @@ export type CarouselSlidesContainerType = {
   children: ReactNode | ReactNode[];
   wrapperWidth: number;
   nextSlideTransitionWidth: number;
+  className?: string;
+  style?: React.CSSProperties;
 };
 
 export type CarouselType = {
   children: ReactNode | ReactNode[];
   className?: string;
   style?: React.CSSProperties;
-  dataLength: number;
+  slidesCount: number;
 };

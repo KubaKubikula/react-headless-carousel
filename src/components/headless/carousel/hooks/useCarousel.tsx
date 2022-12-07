@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-export function useCarousel(dataLength: number) {
+export function useCarousel(slidesCount: number) {
   const [slideIndex, setSlideIndex] = useState<number>(0);
 
   const nextSlide = () => {
-    if (slideIndex === dataLength - 1) {
+    if (slideIndex === slidesCount - 1) {
       setSlideIndex(0);
     } else {
       setSlideIndex(slideIndex + 1);
@@ -13,7 +13,7 @@ export function useCarousel(dataLength: number) {
 
   const prevSlide = () => {
     if (slideIndex === 0) {
-      setSlideIndex(dataLength - 1);
+      setSlideIndex(slidesCount - 1);
     } else {
       setSlideIndex(slideIndex - 1);
     }

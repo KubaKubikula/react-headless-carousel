@@ -4,14 +4,30 @@ import {
   BsFillArrowRightCircleFill,
   BsFillArrowLeftCircleFill,
 } from "react-icons/bs";
+import { useDrag } from "@use-gesture/react";
 
-const CollectionsCarousel = ({ data }: any) => {
+type CollectionSlideType = {
+  cover_image_url: string;
+};
+
+type CollectionsCarouselPropsType = {
+  data: CollectionSlideType[];
+  windowWidth: number;
+};
+
+const CollectionsCarousel = ({
+  data,
+  windowWidth,
+}: CollectionsCarouselPropsType) => {
   const { slideIndex } = useCarouselContext();
+  const bind = useDrag(({ down, movement: [mx] }) => console.log("xxxx"), {
+    axis: "x",
+  });
 
   return (
     <>
       <Carousel.Dots className="top-3 absolute z-50 left-3">
-        {data.map((slideDots: any, index: number) => (
+        {data.map((slideDots: CollectionSlideType, index: number) => (
           <Carousel.Dot
             index={index}
             key={index}
@@ -28,19 +44,23 @@ const CollectionsCarousel = ({ data }: any) => {
         </Carousel.LeftArrow>
       )}
       <Carousel.SlidesContainer
-        wrapperWidth={380}
-        nextSlideTransitionWidth={330}
+        wrapperWidth={windowWidth < 380 ? windowWidth : 380}
+        nextSlideTransitionWidth={windowWidth < 380 ? windowWidth - 30 : 330}
       >
-        {data.map((slide: any, index: number) => (
+        {data.map((slide: CollectionSlideType, index: number) => (
           <Carousel.Slide
             className="w-80 h-auto mr-2.5"
             index={index}
             key={index}
+            style={{
+              width: windowWidth < 380 ? windowWidth - 30 + "px" : "320px",
+            }}
           >
             <img
               className="w-auto rounded-lg"
               src={slide["cover_image_url"]}
               alt="title"
+              {...bind("slide")}
             />
           </Carousel.Slide>
         ))}

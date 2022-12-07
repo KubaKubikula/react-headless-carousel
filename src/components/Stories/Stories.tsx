@@ -7,6 +7,18 @@ import {
 } from "react-icons/bs";
 import Loading from "./Loading";
 
+type StoriesPropType = {
+  windowWidth: number;
+};
+
+type SlideStoryType = {
+  story: {
+    item: {
+      cover_src: string;
+    };
+  };
+};
+
 const LeftArrow = () => {
   const { slideIndex } = useCarouselContext();
   if (slideIndex === 0) {
@@ -19,36 +31,49 @@ const LeftArrow = () => {
   );
 };
 
-const Stories = () => {
+const Stories = ({ windowWidth }: StoriesPropType) => {
   const { status, data } = useStories();
+
+  function getCarouselWidth(): number {
+    return windowWidth < 380 ? windowWidth : 380;
+  }
+
+  function getNextSlideTransitionWidth(): number {
+    return windowWidth < 380 ? (windowWidth / 2 - 30) * 2 + 20 : 340;
+  }
 
   return (
     <>
       {status === "loading" ? (
         <Loading />
       ) : status === "error" ? (
-        <span>Error</span>
+        <span>Error loading Stories</span>
       ) : (
         <Carousel
-          dataLength={data.data.length}
+          slidesCount={data.data.length}
           className="flex flex-row relative"
-          style={{ width: "380px" }}
+          style={{ width: getCarouselWidth() + "px" }}
         >
           <LeftArrow />
           <Carousel.SlidesContainer
-            wrapperWidth={380}
-            nextSlideTransitionWidth={340}
+            wrapperWidth={getCarouselWidth()}
+            nextSlideTransitionWidth={getNextSlideTransitionWidth()}
           >
-            {data.data.map((slide: any, index: number) => (
+            {data.data.map((slide: SlideStoryType, index: number) => (
               <Carousel.Slide
                 index={index}
                 key={index}
-                className="w-40 h-40 mr-2.5"
+                className="mr-2.5"
+                style={{
+                  width:
+                    windowWidth < 380 ? windowWidth / 2 - 30 + "px" : "160px",
+                  height:
+                    windowWidth < 380 ? windowWidth / 2 - 30 + "px" : "160px",
+                }}
               >
                 <img
-                  className="rounded-full w-40 h-40"
+                  className="rounded-full w-full h-full"
                   src={slide.story.item.cover_src}
-                  alt="test"
                 />
               </Carousel.Slide>
             ))}
