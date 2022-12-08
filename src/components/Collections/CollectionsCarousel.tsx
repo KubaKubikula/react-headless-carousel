@@ -4,7 +4,6 @@ import {
   BsFillArrowRightCircleFill,
   BsFillArrowLeftCircleFill,
 } from "react-icons/bs";
-import { useDrag } from "@use-gesture/react";
 
 type CollectionSlideType = {
   cover_image_url: string;
@@ -20,9 +19,6 @@ const CollectionsCarousel = ({
   windowWidth,
 }: CollectionsCarouselPropsType) => {
   const { slideIndex } = useCarouselContext();
-  const bind = useDrag(({ down, movement: [mx] }) => console.log("xxxx"), {
-    axis: "x",
-  });
 
   return (
     <>
@@ -39,7 +35,7 @@ const CollectionsCarousel = ({
         ))}
       </Carousel.Dots>
       {slideIndex !== 0 && (
-        <Carousel.LeftArrow className="absolute left-1 z-50 inset-y-0 opacity-50 hover:opacity-100">
+        <Carousel.LeftArrow className="absolute left-1 z-50 inset-y-0 opacity-50 hover:opacity-100 my-10">
           <BsFillArrowLeftCircleFill size="40" />
         </Carousel.LeftArrow>
       )}
@@ -60,12 +56,11 @@ const CollectionsCarousel = ({
               className="w-auto rounded-lg"
               src={slide["cover_image_url"]}
               alt="title"
-              {...bind("slide")}
             />
           </Carousel.Slide>
         ))}
       </Carousel.SlidesContainer>
-      <Carousel.RightArrow className="absolute right-1 z-50 inset-y-0 opacity-60 hover:opacity-100">
+      <Carousel.RightArrow className="absolute right-1 z-50 inset-y-0 opacity-60 hover:opacity-100 my-10">
         <BsFillArrowRightCircleFill size="40" />
       </Carousel.RightArrow>
     </>

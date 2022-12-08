@@ -13,7 +13,6 @@ function App() {
     function handleWindowResize() {
       setWindowWidth(window.innerWidth);
     }
-
     window.addEventListener("resize", handleWindowResize);
 
     return () => {

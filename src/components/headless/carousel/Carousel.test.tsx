@@ -122,4 +122,53 @@ describe("Rendering", () => {
     expect(screen.getByTestId("left-arrow")).toHaveStyle("width: 300px");
     expect(screen.getByTestId("right-arrow")).toHaveStyle("width: 300px");
   });
+
+  it("should be possible to click to next, prev, goto and call the functions", () => {
+    render(
+      <Carousel slidesCount={3}>
+        <Carousel.Dots>
+          <Carousel.Dot key={0} index={0}>
+            1
+          </Carousel.Dot>
+          <Carousel.Dot key={1} index={1}>
+            2
+          </Carousel.Dot>
+          <Carousel.Dot key={2} index={2}>
+            3
+          </Carousel.Dot>
+        </Carousel.Dots>
+        <Carousel.LeftArrow>left</Carousel.LeftArrow>
+        <Carousel.SlidesContainer
+          wrapperWidth={300}
+          nextSlideTransitionWidth={300}
+        >
+          <Carousel.Slide style={{ width: "300px" }}>1</Carousel.Slide>
+          <Carousel.Slide style={{ width: "300px" }}>2</Carousel.Slide>
+          <Carousel.Slide style={{ width: "300px" }}>3</Carousel.Slide>
+        </Carousel.SlidesContainer>
+        <Carousel.RightArrow>right</Carousel.RightArrow>
+      </Carousel>
+    );
+
+    const leftArrow = screen.getByTestId("left-arrow");
+    const rightArrow = screen.getByTestId("right-arrow");
+    const dots = screen.queryAllByTestId("dot");
+
+    expect(screen.getByTestId("slides-container")).toHaveStyle(
+      "transform: translateX(-0px)"
+    );
+
+    fireEvent.click(leftArrow);
+    expect(screen.getByTestId("slides-container")).toHaveStyle(
+      "transform: translateX(-600px)"
+    );
+    fireEvent.click(rightArrow);
+    expect(screen.getByTestId("slides-container")).toHaveStyle(
+      "transform: translateX(-0px)"
+    );
+    fireEvent.click(dots[1]);
+    expect(screen.getByTestId("slides-container")).toHaveStyle(
+      "transform: translateX(-300px)"
+    );
+  });
 });
