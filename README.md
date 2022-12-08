@@ -3,8 +3,8 @@
 -- Basic usage --
 -----------------
 
--- There are also Carousel.Dots and Carousel.Dot in carousel (check Collections in components how to use it)
--- styling is tailwind, also possible to put style tag on all of elements :-)
+ - There are also Carousel.Dots and Carousel.Dot in carousel (check Collections in components how to use it)
+ - styling is tailwind, also possible to put style tag on all of elements :-)
 
 <img width="551" alt="Screenshot 2022-12-06 at 18 43 54" src="https://user-images.githubusercontent.com/3868751/205984109-08b97641-1786-4230-86bf-88faebceef38.png">
 
